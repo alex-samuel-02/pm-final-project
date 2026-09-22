@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ops Manager Future State</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --ground:#F1F4F3; --paper:#FFFFFF; --ink:#16202A; --muted:#566573; --line:#D5DDDB;
+  --signal:#C97A10; --signal-soft:#FBEFD9; --go:#2B8055; --go-soft:#E2F1E8; --risk:#B4412F; --risk-soft:#F7E3DF;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F161C; --paper:#17212A; --ink:#E6ECEA; --muted:#98A6B1; --line:#2B3843;
+    --signal:#F0A43A; --signal-soft:#3A2B14; --go:#5BC08A; --go-soft:#16301F; --risk:#E8806D; --risk-soft:#3A1E19;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F161C; --paper:#17212A; --ink:#E6ECEA; --muted:#98A6B1; --line:#2B3843;
+  --signal:#F0A43A; --signal-soft:#3A2B14; --go:#5BC08A; --go-soft:#16301F; --risk:#E8806D; --risk-soft:#3A1E19;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:14px/1.45 var(--body);}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:24px;padding-block:28px 32px;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 40px/1 var(--display);letter-spacing:.01em;margin:6px 0 0;text-wrap:balance}
+h2{font:700 20px/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase;margin:0}
+.head{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:end}
+.brief{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:12px 0 0;font-size:13px}
+.brief dt{font:500 11px/1.7 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.brief dd{margin:0}
+.urgent{background:var(--risk-soft);border-left:4px solid var(--risk);padding:12px 14px;border-radius:2px}
+.urgent strong{display:block;font:700 17px/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase;color:var(--risk);margin-bottom:4px}
+.urgent p{margin:0;font-size:13px}
+
+/* route timeline */
+.route{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:34px 0 0;margin:12px 0 0;list-style:none}
+.route::before{content:"";position:absolute;top:15px;left:12.5%;right:12.5%;height:0;border-top:3px dashed var(--signal)}
+.stage{position:relative;display:flex;flex-direction:column}
+.stop{position:absolute;top:-34px;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:50%;
+  background:var(--ink);color:var(--ground);display:grid;place-items:center;font:700 17px/1 var(--display);box-shadow:0 0 0 4px var(--ground)}
+.stage:last-child .stop{background:var(--go)}
+.card{margin-top:12px;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px;display:flex;flex-direction:column;gap:11px;flex:1}
+.card h3{margin:0;font:700 22px/1 var(--display);letter-spacing:.01em}
+.card h3 small{display:block;font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.field{display:flex;flex-direction:column;gap:5px}
+.label{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+li{font-size:13px}
+.id{white-space:nowrap}
+.arrow{color:var(--signal);font-weight:600;padding:0 2px}
+.benefit{font-weight:600}
+.state{font-size:13px;background:var(--signal-soft);padding:7px 9px;border-radius:3px}
+.pain{font-size:12.5px;color:var(--ink);border-top:1px solid var(--line);padding-top:9px}
+.ids{display:block;font:500 11px/1.5 var(--mono);color:var(--muted);margin-top:2px}
+
+.adv{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.adv > div{border-top:3px solid var(--go);padding-top:10px}
+.adv h4{margin:0 0 4px;font:700 18px/1.1 var(--display);letter-spacing:.02em}
+.adv p{margin:0;font-size:13px}
+.foot{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin:0}
+.foot b{color:var(--ink)}
+
+@media (max-width:900px){
+  .head{grid-template-columns:1fr}
+  .route{grid-template-columns:1fr;padding:0 0 0 44px;gap:18px}
+  .route::before{top:16px;bottom:16px;left:15px;right:auto;height:auto;border-top:0;border-left:3px dashed var(--signal)}
+  .stop{top:12px;left:-44px;transform:none}
+  .card{margin-top:0}
+  .adv{grid-template-columns:1fr}
+}
+@media (max-width:480px){ .wrap{padding-inline:16px} h1{font-size:32px} }
+@media print{
+  body{background:#fff} .wrap{padding-block:0;gap:14px}
+  .card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="head">
+    <div>
+      <div class="eyebrow">Future-state journey · Simplification initiative</div>
+      <h1>From parallel systems to one trusted record</h1>
+      <dl class="brief">
+        <dt>Persona</dt><dd>Regional / enterprise ops manager who bought for admin and reporting, and must justify renewal.</dd>
+        <dt>Goal</dt><dd>One reliable record their team actually uses, so reports reflect what really happened.</dd>
+        <dt>Strategy</dt><dd>Reclaim operational simplicity: strip legacy noise, make everyday work the fastest path.</dd>
+      </dl>
+    </div>
+    <aside class="urgent">
+      <strong>Why launch now</strong>
+      <p>One renewal is flagged at risk. One enterprise account is evaluating a routing-only competitor (UXR-04, UXR-10). Without simplification, our market position becomes untenable.</p>
+    </aside>
+  </header>
+
+  <section aria-label="Four-stage journey">
+    <h2>The journey</h2>
+    <ol class="route">
+      <li class="stage">
+        <span class="stop" aria-hidden="true">1</span>
+        <div class="card">
+          <h3><small>Stage 1</small>Declutter</h3>
+          <div class="field"><span class="label">User action</span>
+            <ul>
+              <li>Switches drivers to a core-only home screen <span class="arrow">→</span> <span class="benefit">admin features stop crowding frontline work</span></li>
+              <li>Pins Start Route and Mark Delivered to home <span class="arrow">→</span> <span class="benefit">one tap from any stop</span></li>
+            </ul>
+          </div>
+          <div class="field"><span class="label">Internal state</span>
+            <div class="state">Sceptical <span class="arrow">→</span> hopeful: the app finally looks built for drivers</div>
+          </div>
+          <div class="pain"><span class="label">Pain point addressed</span><br>Core actions buried 2–3 levels deep; home screen can't be customised<span class="ids"><span class="id">BUG-2079</span> · <span class="id">UXR-04</span> · <span class="id">UXR-11</span></span></div>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stop" aria-hidden="true">2</span>
+        <div class="card">
+          <h3><small>Stage 2</small>Same-Day Onboarding</h3>
+          <div class="field"><span class="label">User action</span>
+            <ul>
+              <li>Adds a new driver at shift start <span class="arrow">→</span> <span class="benefit">they complete live stops that day</span></li>
+              <li>Points them to the reopenable in-app guide <span class="arrow">→</span> <span class="benefit">no senior staff shadowing</span></li>
+            </ul>
+          </div>
+          <div class="field"><span class="label">Internal state</span>
+            <div class="state">Drained <span class="arrow">→</span> relieved: onboarding no longer costs experienced staff time</div>
+          </div>
+          <div class="pain"><span class="label">Pain point addressed</span><br>Nested menus block same-day onboarding; tutorial can't be reopened<span class="ids"><span class="id">UXR-08</span> · <span class="id">BUG-2090</span></span></div>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stop" aria-hidden="true">3</span>
+        <div class="card">
+          <h3><small>Stage 3</small>One Live Record</h3>
+          <div class="field"><span class="label">User action</span>
+            <ul>
+              <li>Sees stops flip to delivered as drivers tap <span class="arrow">→</span> <span class="benefit">trusts the dashboard again</span></li>
+              <li>Closes the WhatsApp group and paper manifests <span class="arrow">→</span> <span class="benefit">coordination back in one system</span></li>
+            </ul>
+          </div>
+          <div class="field"><span class="label">Internal state</span>
+            <div class="state">Chasing messages <span class="arrow">→</span> in control: sees reality without asking</div>
+          </div>
+          <div class="pain"><span class="label">Pain point addressed</span><br>Three-tap delivery, stale statuses, coordination via WhatsApp, texts and paper<span class="ids"><span class="id">BUG-2055</span> · <span class="id">BUG-2072</span> · <span class="id">UXR-01</span> · <span class="id">UXR-02</span> · <span class="id">UXR-12</span></span></div>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stop" aria-hidden="true">4</span>
+        <div class="card">
+          <h3><small>Stage 4</small>Renew with Evidence</h3>
+          <div class="field"><span class="label">User action</span>
+            <ul>
+              <li>Pulls reports straight from app data <span class="arrow">→</span> <span class="benefit">no manual reconciliation before sharing</span></li>
+              <li>Shows adoption and delivery metrics at renewal <span class="arrow">→</span> <span class="benefit">ROI proven, not argued</span></li>
+            </ul>
+          </div>
+          <div class="field"><span class="label">Internal state</span>
+            <div class="state">Defensive <span class="arrow">→</span> confident: can justify the spend to leadership</div>
+          </div>
+          <div class="pain"><span class="label">Pain point addressed</span><br>Unreliable reports, at-risk renewal, competitor evaluation<span class="ids"><span class="id">UXR-04</span> · <span class="id">UXR-10</span></span></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-label="Competitive advantages">
+    <h2 style="margin-bottom:12px">3 advantages over the manual workaround</h2>
+    <div class="adv">
+      <div><h4>One record, not three</h4><p>Captures each delivery once <span class="arrow">→</span> <span class="benefit">one auditable record replaces WhatsApp, texts and paper</span></p></div>
+      <div><h4>Reports that build themselves</h4><p>Feeds reports from live app data <span class="arrow">→</span> <span class="benefit">no manual reconciliation before every review</span></p></div>
+      <div><h4>Scales without extra staff</h4><p>Onboards drivers same day <span class="arrow">→</span> <span class="benefit">fleet grows without shadowing or parallel coordination</span></p></div>
+    </div>
+  </section>
+
+  <p class="foot"><b>Dependency:</b> Stage 3 also needs the sync delays (BUG-2044, BUG-2072) and mid-route crash (BUG-2031) fixed. Simplicity alone won't retire WhatsApp.</p>
+</div>
+
+</body>
+</html>
