@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water Tracking Strategy Map</title>
+<style>
+  :root { --bg:#f7f9fc; --ink:#1d2433; --muted:#5b6475; --card:#fff; --border:#dde4ee; --amber:#c77700; --amberbg:#fff6e5; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding:20px 24px 0; max-width:1400px; }
+  h1 { margin:0; font-size:20px; }
+  h2 { font-size:16px; margin:0 0 10px; }
+  .sub { margin:4px 0 0; color:var(--muted); font-size:13px; line-height:1.5; }
+  .legend { display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; font-size:12px; color:var(--muted); }
+  .legend b { color:var(--ink); }
+  .wrap { padding:8px 16px 8px; overflow:auto; }
+  svg { display:block; width:100%; height:auto; min-width:1000px; }
+  .leaf { font-size:13px; fill:var(--ink); }
+  .tag { font-size:10.5px; font-weight:800; letter-spacing:.04em; }
+  .flag { font-size:12px; font-weight:800; fill:var(--amber); }
+  .branch-label { font-size:14px; font-weight:700; fill:#fff; }
+  .root-label { font-size:15px; font-weight:800; fill:#fff; }
+  .root-sub { font-size:11px; fill:#c9d6e8; }
+  section { padding:8px 24px 24px; max-width:1400px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:12px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .card.t { border-left:4px solid var(--amber); background:var(--amberbg); }
+  .card h3 { margin:0 0 6px; font-size:14px; }
+  .card p { margin:0 0 6px; font-size:13px; line-height:1.5; }
+  .card p:last-child { margin-bottom:0; }
+  .lbl { font-weight:700; }
+  .matrix { display:grid; grid-template-columns: 70px 1fr 1fr; grid-template-rows: auto 1fr 1fr; gap:6px; font-size:13px; }
+  .matrix .ax { font-size:11px; font-weight:700; color:var(--muted); display:flex; align-items:center; justify-content:center; text-align:center; }
+  .q { border-radius:8px; padding:10px 12px; border:1px solid var(--border); background:#fff; }
+  .q h4 { margin:0 0 4px; font-size:12px; letter-spacing:.04em; text-transform:uppercase; }
+  .q ul { margin:0; padding-left:18px; line-height:1.55; }
+  .q1 h4 { color:#1a7f4b; } .q2 h4 { color:#2f6fd8; } .q3 h4 { color:#7a7f8a; } .q4 h4 { color:#c0392b; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Water Tracking App: Strategic Discovery Map (V3)</h1>
+  <p class="sub">Target user: busy adults aged 25 to 40 who know they should drink more but forget. Prepared for a discovery sprint, so everything here is a hypothesis to validate, not a decision.</p>
+  <div class="legend">
+    <span><b style="color:#1a7f4b">QUICK WIN</b> low effort · high impact</span>
+    <span><b style="color:#2f6fd8">BIG BET</b> high effort · high impact</span>
+    <span><b style="color:#7a7f8a">FILLER</b> low effort · low impact</span>
+    <span><b style="color:#c0392b">MONEY PIT</b> high effort · low or unproven impact</span>
+    <span><b style="color:#c77700">⚡T#</b> strategic tension to debate (see below)</span>
+  </div>
+</header>
+
+<div class="wrap"><svg id="map" xmlns="http://www.w3.org/2000/svg"></svg></div>
+
+<section>
+  <h2>⚡ Strategic tensions to debate</h2>
+  <div class="grid">
+    <div class="card t"><h3>T1 · Nudge enough vs. become noise</h3>
+      <p>The user's core job is “remind me so I don't have to remember,” but notification fatigue is the fastest route to a muted, then deleted, app.</p>
+      <p><span class="lbl">Debate:</span> Do we optimise for reminders sent or reminders acted on? Fewer, better-timed nudges may lower short-term logging but protect long-term retention.</p></div>
+    <div class="card t"><h3>T2 · What sits behind the paywall?</h3>
+      <p>Smart, context-aware reminders are both the most valuable feature and the strongest premium hook.</p>
+      <p><span class="lbl">Debate:</span> Paywall them and free users never reach the “aha” moment. Give them away and premium has to stand on insights alone, which may be too weak to convert.</p></div>
+    <div class="card t"><h3>T3 · B2C app vs. B2B wellness product</h3>
+      <p>Corporate wellness offers bigger, stickier contracts, and our 25 to 40 working adults are exactly who employers want to reach.</p>
+      <p><span class="lbl">Debate:</span> The buyer (HR) wants aggregate reporting and engagement stats. The user wants privacy and simplicity. Chasing both in 12 weeks risks building two half-products.</p></div>
+    <div class="card t"><h3>T4 · The success-churn paradox</h3>
+      <p>If the app works, users form the habit and may no longer need it. Our best outcome for the user looks like churn on the dashboard.</p>
+      <p><span class="lbl">Debate:</span> Do we accept graceful churn and price for it (one-time or short programmes), or expand the value (energy, focus, wider health) to earn a long-term place on the phone?</p></div>
+    <div class="card t"><h3>T5 · Streaks motivate and punish</h3>
+      <p>Streaks drive early engagement, but one missed day can make an all-or-nothing user quit entirely.</p>
+      <p><span class="lbl">Debate:</span> Hard streaks for stronger short-term pull, or forgiving progress (weekly targets, streak freezes) for steadier long-term retention?</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Effort vs. impact: feature ranking</h2>
+  <div class="matrix">
+    <div></div><div class="ax">LOW EFFORT</div><div class="ax">HIGH EFFORT</div>
+    <div class="ax">HIGH<br>IMPACT</div>
+    <div class="q q1"><h4>Quick wins: do first</h4><ul><li>One-tap logging from widget and lock screen</li><li>Favourite-container presets (my bottle = 750 ml)</li><li>Forgiving weekly goal view</li></ul></div>
+    <div class="q q2"><h4>Big bets: validate first</h4><ul><li>Calendar-aware smart nudges (between meetings) ⚡T1</li><li>Apple Health and wearable sync for passive context</li></ul></div>
+    <div class="ax">LOW<br>IMPACT</div>
+    <div class="q q3"><h4>Fillers: only if spare capacity</h4><ul><li>Themes and custom reminder sounds</li><li>Badges and achievements</li></ul></div>
+    <div class="q q4"><h4>Money pits: park</h4><ul><li>Social leaderboards (low fit for a private habit)</li><li>Smart-bottle hardware integration</li></ul></div>
+  </div>
+</section>
+
+<script>
+// leaf: [text, tag?, tension?]
+const data = [
+  ["1 · Core jobs-to-be-done", "#2f6fd8", [
+    ["Remind me so I don't have to remember", null, "T1"],
+    ["Help me feel more energised and focused at work"],
+    ["Show me if I'm on track at a glance"],
+    ["Build a habit that sticks without effort", null, "T4"],
+    ["Fit around meetings, commute and gym"],
+  ]],
+  ["2 · Friction points today", "#d9822b", [
+    ["Forgets during deep work and back-to-back meetings"],
+    ["Manual logging feels like a chore"],
+    ["Generic reminders become noise, then get muted", null, "T1"],
+    ["Benefit feels abstract, no visible payoff"],
+    ["Unsure how much is actually enough"],
+    ["Bottle not at hand when the reminder fires"],
+  ]],
+  ["5 · Retention risks → fixes", "#7a5af5", [
+    ["Novelty fades after week 2 → adaptive goals, new insights"],
+    ["Notification fatigue → fewer, smarter nudges", null, "T1"],
+    ["Logging burden → one-tap and passive logging"],
+    ["Broken streak → quits → streak freezes", null, "T5"],
+    ["Habit formed → no longer needs app", null, "T4"],
+  ]],
+  ["3 · Features: effort vs. impact", "#1a7f4b", [
+    ["One-tap widget and lock-screen logging", "QUICK WIN"],
+    ["Container presets (my bottle = 750 ml)", "QUICK WIN"],
+    ["Forgiving weekly goal view", "QUICK WIN", "T5"],
+    ["Calendar-aware smart nudges", "BIG BET", "T1"],
+    ["Health / wearable sync for context", "BIG BET"],
+    ["Themes, sounds, badges", "FILLER"],
+    ["Social leaderboards", "MONEY PIT"],
+    ["Smart-bottle integration", "MONEY PIT"],
+  ]],
+  ["4 · Monetization paths", "#4a5a78", [
+    ["Freemium + premium: recurring, but what's paywalled?", null, "T2"],
+    ["B2B wellness: big contracts, different buyer", null, "T3"],
+    ["One-time unlock: simple, caps lifetime value", null, "T4"],
+    ["Bottle / brand partners: revenue, less neutral"],
+    ["Ads: easy revenue, erodes trust in health app"],
+  ]],
+];
+const tagColor = { "QUICK WIN":"#1a7f4b", "BIG BET":"#2f6fd8", "FILLER":"#7a7f8a", "MONEY PIT":"#c0392b" };
+
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("map");
+const el = (t, a, parent = svg) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); parent.appendChild(e); return e; };
+const tspan = (parent, text, attrs = {}) => { const s = el("tspan", attrs, parent); s.textContent = text; return s; };
+
+const LEAF_H = 28, GROUP_GAP = 26, BR_W = 230, BR_H = 38, ROOT_W = 230, ROOT_H = 72;
+const BR_X = 300, LEAF_X = 470;
+const right = data.slice(0, 3), left = data.slice(3);
+const colH = side => side.reduce((s, b) => s + b[2].length * LEAF_H + GROUP_GAP, -GROUP_GAP);
+const H = Math.max(colH(right), colH(left)) + 50;
+const W = 1760, cx = W / 2, cy = H / 2;
+const lines = el("g", {}), nodes = el("g", {});
+
+function drawSide(side, dir) {
+  let y = cy - colH(side) / 2;
+  side.forEach(([name, color, leaves]) => {
+    const gh = leaves.length * LEAF_H, by = y + gh / 2, bx = cx + dir * BR_X;
+    const sx = cx + dir * ROOT_W / 2, ex = bx - dir * BR_W / 2;
+    el("path", { d: `M${sx},${cy} C${(sx+ex)/2},${cy} ${(sx+ex)/2},${by} ${ex},${by}`, fill:"none", stroke:color, "stroke-width":3, opacity:.85 }, lines);
+    el("rect", { x:bx-BR_W/2, y:by-BR_H/2, width:BR_W, height:BR_H, rx:19, fill:color }, nodes);
+    el("text", { x:bx, y:by+5, "text-anchor":"middle", class:"branch-label" }, nodes).textContent = name;
+    leaves.forEach(([text, tag, tension], i) => {
+      const ly = y + i * LEAF_H + LEAF_H / 2;
+      const lsx = bx + dir * BR_W / 2, lex = cx + dir * LEAF_X;
+      el("path", { d:`M${lsx},${by} C${(lsx+lex)/2},${by} ${(lsx+lex)/2},${ly} ${lex},${ly}`, fill:"none", stroke:color, "stroke-width":1.5, opacity:.55 }, lines);
+      el("circle", { cx:lex, cy:ly, r:4, fill:color }, nodes);
+      const t = el("text", { x:lex + dir*10, y:ly+4.5, "text-anchor": dir > 0 ? "start" : "end", class:"leaf" }, nodes);
+      // order parts so flag sits on the outer side for both directions
+      const parts = [];
+      if (tag) parts.push(() => tspan(t, tag + "  ", { class:"tag", fill:tagColor[tag] }));
+      parts.push(() => tspan(t, text));
+      if (tension) parts.push(() => tspan(t, "  ⚡" + tension, { class:"flag" }));
+      parts.forEach(f => f());
+    });
+    y += gh + GROUP_GAP;
+  });
+}
+drawSide(right, 1);
+drawSide(left, -1);
+el("rect", { x:cx-ROOT_W/2, y:cy-ROOT_H/2, width:ROOT_W, height:ROOT_H, rx:36, fill:"#16324f" }, nodes);
+el("text", { x:cx, y:cy-2, "text-anchor":"middle", class:"root-label" }, nodes).textContent = "💧 Water Tracking App";
+el("text", { x:cx, y:cy+16, "text-anchor":"middle", class:"root-sub" }, nodes).textContent = "Busy adults 25–40 who forget";
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+</script>
+</body>
+</html>

@@ -1,13 +1,13 @@
 # Problem Hook & Value Proposition (Module 1)
 
 ## Responses
-- **Chosen path, which scenario are you committing to? (StreamLine or RouteLogic, or your own):** RouteLogic Velocity
-- **Strategic crisis, based on the brief, if the company does nothing for 12 months, what happens to its market position?:** If we do nothing for 12 months our customers will start to further consider competitors and potentially leaving the product. This would lead to a deterioration in our market position.
-- **Moment of misery, what is the user likely doing outside the product (Google, spreadsheets, a competitor) because your tool isn’t serving them?:** The user is forced to trial competitors in order to reduce their administrative burden and operate more efficiently.
-- **Problem hook, summarize the business risk and user pain into one urgent sentence.:** we must simplify the product so that it is viewed(and is) as a facilitator instead of a burden. Especially with regards to administration.
-- **Value proposition, based on the proposed initiative (Spotlight or Velocity), what is the new value and why is it urgent to launch now?:** The proposed initiative is to simplify the product. It is urgent to launch now otherwise our position in the market will become untenable.
+- **Chosen path, which scenario are you committing to? (StreamLine or RouteLogic, or your own):** RouteLogic Velocity.
+- **Strategic crisis, based on the brief, if the company does nothing for 12 months, what happens to its market position?:** If we don't do something within the next 12 months are rivals will become increasingly attractive hence resulting in customers switching to other products.
+- **Moment of misery, what is the user likely doing outside the product (Google, spreadsheets, a competitor) because your tool isn’t serving them?:** Due to the over complexity of the product our clients are forced to create work arounds in order avoid the hassle it is to use in a time constrained environment.
+- **Problem hook, summarize the business risk and user pain into one urgent sentence.:** We must maintain our current client base by reducing the complexity of our product by primarily addressing the end user(driver) experience.
+- **Value proposition, based on the proposed initiative (Spotlight or Velocity), what is the new value and why is it urgent to launch now?:** For the average user we should launch ASAP to maintain our position in the market and precent customer leakage.
 
 ## Cold-read your own hook
-- **Is the business risk high enough to justify a new initiative, a high-stakes threat, or a minor inconvenience?:** It is a medium threat. If it is not addressed now it may balloon into a severe threat as it would lead to trouble in the future. A frog in boiling water situation.
-- **Is the moment of misery a systemic problem or just an edge case?:** Our moment of misery is an edge case. However due to the nature of the client being our largest customer that is thinking of leaving Velocity, this indicates that we have systemic problems if left unaddressed.
-- **Does the value proposition actually remove the obstacle you identified, or is it a generic feature?:** The main problem with the product is that it is overcomplicated. Focusing on simplifying it down to please the vast majority of the customer base is crucial to maintain our current position in the market.
+- **Is the business risk high enough to justify a new initiative, a high-stakes threat, or a minor inconvenience?:** Yes. Our position in the market is tenuous and if no changes are made we will lose our leading position
+- **Is the moment of misery a systemic problem or just an edge case?:** Specifically our largest customer is thinking about leaving. If they do this it will likely be known in the industry throwing our product into question
+- **Does the value proposition actually remove the obstacle you identified, or is it a generic feature?:** my value proposition is generic but the is the root of the problem.
