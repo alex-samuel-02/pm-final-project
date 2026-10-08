@@ -1,11 +1,7 @@
-# Strategic Discovery Map
-
-> **Module 1 · Lab 1.** Repo file `01-product-thinking/strategic-map.md` — part of your submission.
-> Do the lab in the **Module 1 · Exercise 1 Guide** (linked from the Module 1 deck), then click **⬇ Download .md** — it saves as this exact file. Commit it here.
-> It's the discovery groundwork behind your `problem-hook.md`.
+# Strategic Discovery Map (Module 1)
 
 ## Responses
-
-- **Feature with no strategic answer (why is this a 12-week priority?):** _(not filled in)_
-- **Feature that looks "correct" but has zero strategic weight:** _(not filled in)_
-- **V3 vs your Step 1 baseline — what changed, and was it your PM knowledge that forced usefulness?:** _(not filled in)_
+- **Write one feature from the map that, if an engineer asked “why is this a priority for our 12-week roadmap?”, you honestly could not give a strategic answer for.:** I think one feature that I could not give a strategic answer for is the custom reminder sounds. It will not change customer behaviour it is simply a nice to have feature hence not a priority.
+- **Write one feature that looks “correct” for the app but has zero strategic weight, you have no idea if it helps the company make money or whether a single user actually asked for it.:** I think the challenges has zero strategic value. Drinking more water in a short space of time doesn't make it healthier hence this could be sending the wrong message. Additionally this is a feature that I don't believe anyone would miss.
+- **Compare V3 to your Step 1 baseline. What changed, and is the output objectively better, did the AI get smarter, or did your added PM knowledge (JTBD, effort/impact, retention) force it to be useful?:** Version 1 was just a list of features grouped by category with no real order to development. Version 3 is built around a specific user and it ties each feature to a job that needs to be done and it ranks it by effort and impact so in all it is a much better guide to use in developing an app.
+- **Key takeaway: how does this prove the PM’s role is to think while the AI’s role is to execute?:** A PM cannot let an AI do the thinking for themselves it must take into account AI flaws and use prompt engineering to really maximise results that the AI produces. In short, very useful tool but still has its limitations(thankfully).
