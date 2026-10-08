@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RouteLogic Velocity: Future-State Journey for the Veteran Driver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --asphalt: #1F2A33;
+  --asphalt-2: #2C3A45;
+  --line: #F2B705;
+  --paper: #F7F8F5;
+  --card: #FFFFFF;
+  --ink: #1F2A33;
+  --muted: #5B6770;
+  --rule: #D9DED9;
+  --pain: #C2452D;
+  --pain-bg: #FBEDE9;
+  --gain: #1E7A5A;
+  --gain-bg: #E5F3EC;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141B21; --card: #1C252C; --ink: #E8ECE9; --muted: #A3AEB5;
+    --rule: #2F3B44; --pain: #F08A73; --pain-bg: #3A2420; --gain: #6FCFA6; --gain-bg: #1D3329;
+    --asphalt: #0E1418; --asphalt-2: #1A232A;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141B21; --card: #1C252C; --ink: #E8ECE9; --muted: #A3AEB5;
+  --rule: #2F3B44; --pain: #F08A73; --pain-bg: #3A2420; --gain: #6FCFA6; --gain-bg: #1D3329;
+  --asphalt: #0E1418; --asphalt-2: #1A232A;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Barlow", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+h1, h2, h3 { font-family: "Barlow Condensed", "Arial Narrow", "Barlow", sans-serif; font-weight: 600; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.75rem); max-width: 22ch; }
+h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+h3 { font-size: 1.35rem; }
+.intro { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
+.intro p { margin: .75rem 0 0; color: var(--muted); max-width: 60ch; }
+.persona { border-left: 3px solid var(--line); padding: .25rem 0 .25rem 1rem; font-size: .95rem; }
+.persona dt { font-weight: 600; color: var(--ink); }
+.persona dd { margin: 0 0 .6rem; color: var(--muted); }
+
+.road {
+  position: relative;
+  background: var(--asphalt);
+  border-radius: 14px;
+  padding: 1.6rem 1.5rem 1.4rem;
+  color: #F1F3F0;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+.road-track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); min-width: 560px; }
+.road-track::before {
+  content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 17px; height: 4px;
+  background: repeating-linear-gradient(90deg, var(--line) 0 22px, transparent 22px 36px);
+}
+.stop { position: relative; text-align: center; }
+.pin {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--asphalt-2); border: 3px solid var(--line);
+  display: grid; place-items: center; margin: 0 auto .6rem;
+  font-family: "Barlow Condensed", sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--line);
+  position: relative; z-index: 1;
+}
+.stop.key .pin { background: var(--line); color: var(--asphalt); }
+.stop-name { font-family: "Barlow Condensed", sans-serif; font-size: 1.15rem; font-weight: 600; }
+.stop-when { font-size: .85rem; color: #B9C3C9; }
+
+.stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2.25rem; }
+.stage { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 1.1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .85rem; }
+.stage.key { border: 2px solid var(--line); }
+.stage-head { display: flex; align-items: baseline; gap: .5rem; }
+.stage-head span { font-family: "Barlow Condensed", sans-serif; font-weight: 600; color: var(--muted); font-size: 1.1rem; }
+.key-note { font-size: .82rem; color: var(--muted); margin-top: -.5rem; }
+.field-label { font-size: .82rem; font-weight: 600; color: var(--muted); margin-bottom: .2rem; }
+.field p { margin: 0; font-size: .95rem; }
+.arrow { color: var(--line); font-weight: 600; }
+:root:not([data-theme="dark"]) .arrow { color: #B07F00; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .arrow { color: var(--line); } }
+.pain { background: var(--pain-bg); border-radius: 8px; padding: .65rem .75rem; margin-top: auto; }
+.pain .field-label { color: var(--pain); }
+
+.advantages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; counter-reset: adv; }
+.adv { background: var(--gain-bg); border-radius: 10px; padding: 1rem 1.1rem; }
+.adv h3 { font-size: 1.2rem; color: var(--gain); margin-bottom: .35rem; }
+.adv p { margin: 0; font-size: .95rem; }
+.source { margin-top: 2rem; font-size: .82rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+@media (max-width: 900px) {
+  .intro { grid-template-columns: 1fr; }
+  .stages { grid-template-columns: repeat(2, 1fr); }
+  .advantages { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 1.75rem 1rem 2.5rem; }
+  .stages { grid-template-columns: 1fr; }
+}
+@media print {
+  body { background: #fff; }
+  .wrap { padding: 1rem; }
+  .road { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .stage, .adv, .pain { break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="intro">
+    <div>
+      <h1>A shift where the app is the fastest way to work</h1>
+      <p>Future-state journey for RouteLogic Velocity. Strategy: reclaim operational simplicity by stripping away legacy noise and making the tool the fastest option for everyday work.</p>
+    </div>
+    <dl class="persona">
+      <dt>Persona: the veteran driver</dt>
+      <dd>Completes dozens of stops a day and knows the route better than the software does.</dd>
+      <dt>Goal</dt>
+      <dd>Move through every stop with the fewest taps, so the day ends on time.</dd>
+    </dl>
+  </header>
+
+  <section class="road" aria-label="Journey timeline">
+    <div class="road-track">
+      <div class="stop"><div class="pin">1</div><div class="stop-name">Start shift</div><div class="stop-when">Morning</div></div>
+      <div class="stop"><div class="pin">2</div><div class="stop-name">Drive to stop</div><div class="stop-when">Every leg</div></div>
+      <div class="stop key"><div class="pin">3</div><div class="stop-name">At the doorstep</div><div class="stop-when">Dozens of times a day</div></div>
+      <div class="stop"><div class="pin">4</div><div class="stop-name">End of shift</div><div class="stop-when">Evening</div></div>
+    </div>
+  </section>
+
+  <ol class="stages" style="list-style:none;padding:0;margin-top:0">
+    <li class="stage">
+      <div class="stage-head"><span>1</span><h3>Start shift</h3></div>
+      <div class="field"><div class="field-label">User action</div><p>Taps Start Route on the home screen <span class="arrow">→</span> moving within seconds.</p></div>
+      <div class="field"><div class="field-label">Internal state</div><p>Confident, not hunting <span class="arrow">→</span> the app feels built for their job.</p></div>
+      <div class="pain"><div class="field-label">Pain point addressed</div><p>Start Route buried 2–3 levels deep <span class="arrow">→</span> now one tap (BUG-2079, UXR-11).</p></div>
+    </li>
+    <li class="stage">
+      <div class="stage-head"><span>2</span><h3>Drive to stop</h3></div>
+      <div class="field"><div class="field-label">User action</div><p>Saves a closed road or rear dock once <span class="arrow">→</span> the app remembers it.</p></div>
+      <div class="field"><div class="field-label">Internal state</div><p>Respected, not second-guessed <span class="arrow">→</span> their expertise improves the route.</p></div>
+      <div class="pain"><div class="field-label">Pain point addressed</div><p>Daily manual overrides <span class="arrow">→</span> local knowledge stays in the system (BUG-2068, UXR-05).</p></div>
+    </li>
+    <li class="stage key">
+      <div class="stage-head"><span>3</span><h3>At the doorstep</h3></div>
+      <div class="key-note">The moment the texting hack is born</div>
+      <div class="field"><div class="field-label">User action</div><p>Taps Delivered once, one-handed <span class="arrow">→</span> stop recorded, photo queued automatically.</p></div>
+      <div class="field"><div class="field-label">Internal state</div><p>Relieved, already moving on <span class="arrow">→</span> no reason to reach for texts.</p></div>
+      <div class="pain"><div class="field-label">Pain point addressed</div><p>Three screens and silent photo failures <span class="arrow">→</span> one tap with confirmation (BUG-2055, BUG-2061, UXR-01).</p></div>
+    </li>
+    <li class="stage">
+      <div class="stage-head"><span>4</span><h3>End of shift</h3></div>
+      <div class="field"><div class="field-label">User action</div><p>Taps End Route with every stop logged <span class="arrow">→</span> heads home on time.</p></div>
+      <div class="field"><div class="field-label">Internal state</div><p>Finished, nothing to reconcile <span class="arrow">→</span> work ends when the route ends.</p></div>
+      <div class="pain"><div class="field-label">Pain point addressed</div><p>Texting workaround and stale dispatcher board <span class="arrow">→</span> one single record (UXR-01, UXR-09).</p></div>
+    </li>
+  </ol>
+
+  <section aria-labelledby="adv-title">
+    <h2 id="adv-title">Competitive advantages over the manual workaround</h2>
+    <div class="advantages">
+      <div class="adv"><h3>Faster than a text</h3><p>One tap beats unlocking, opening messages and typing an address.</p></div>
+      <div class="adv"><h3>Built-in proof</h3><p>Every stop carries a timestamp, GPS and photo, so disputes have evidence.</p></div>
+      <div class="adv"><h3>One entry, zero rework</h3><p>Dispatchers stop retyping driver texts, and the buyer's reporting stays complete.</p></div>
+    </div>
+  </section>
+
+  <p class="source">Evidence references: user research notes (UXR) and bug reports (BUG) from the Module 2 Product Health &amp; Insights Summary.</p>
+
+</main>
+</body>
+</html>
